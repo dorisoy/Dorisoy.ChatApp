@@ -1,4 +1,4 @@
-## Dirosoy.ChatApp
+## Dorisoy.ChatApp
 
 基于 .NET MAUI 开发的完整聊天应用程序。它遵循 MVVM 模式。该项目包括使用 SignalR 的 C# 服务器端 chathub 实现。您可以轻松地将此代码集成到现有或新项目中。
 
