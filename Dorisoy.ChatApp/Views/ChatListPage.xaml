@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Dorisoy.ChatApp.ChatListPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Dorisoy.ChatApp.Converters"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:model="clr-namespace:Dorisoy.ChatApp.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:Dorisoy.ChatApp.ViewModel"
+             x:DataType="viewmodel:ChatListViewModel"
+             Shell.BackgroundColor="#5cb26e">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:OnlineStatusColorConverter x:Key="OnlineStatus" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="#5cb26e" />
+    </ContentPage.Behaviors>
+
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="0,5,0,0"
+                               VerticalOptions="Fill">
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         Orientation="Horizontal">
+
+                <ImageButton Command="{Binding LoginCommand}"
+                             HeightRequest="25"
+                             HorizontalOptions="End"
+                             Source="back_white.png"
+                             Background="Transparent" />
+                <Label Margin="5,5"
+                       FontAttributes="Bold"
+                       FontSize="20"
+                       HorizontalOptions="Start"
+                       Text="{Binding Title}"
+                       TextColor="#fff"
+                       VerticalOptions="Center" />
+
+            </StackLayout>
+
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <ScrollView VerticalScrollBarVisibility="Never" Margin="0">
+        <Grid RowDefinitions="Auto,Auto,*,Auto" 
+              ColumnSpacing="0" 
+              RowSpacing="0" 
+              Margin="0" 
+              Padding="0">
+
+            <Frame Grid.Row="0"
+                   Margin="0,-5,0,0"
+                   BackgroundColor="#5cb26e"
+                   CornerRadius="0"
+                   HasShadow="False"
+                   HeightRequest="90" />
+
+            <Border Grid.Row="2"
+                   Margin="0,-70,0,-30"
+                    Padding="10"
+                   BackgroundColor="#fff"
+                    Stroke="#5cb26e"
+                    StrokeThickness="0"
+                    VerticalOptions="FillAndExpand">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30,30,0,0" />
+                </Border.StrokeShape>
+
+                <Border.Shadow>
+                    <Shadow Opacity="0.1"
+                            Offset="2,2"
+                            Radius="0" />
+                </Border.Shadow>
+
+                <CollectionView x:Name="lvChatUserList"
+                                ItemsSource="{Binding ChatUserList}"
+                                SelectionMode="None">
+                    <CollectionView.EmptyView>
+                        <StackLayout Padding="100">
+                            <Image HeightRequest="160"
+                                   HorizontalOptions="Center"
+                                   Source="nodata.png"
+                                   VerticalOptions="Center"
+                                   WidthRequest="160" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ChatUser">
+
+                            <StackLayout Margin="0"
+                                         Padding="0,0,0,1"
+                                         BackgroundColor="LightGray">
+
+                                <StackLayout Padding="0,5,0,5"
+                                             BackgroundColor="White"
+                                             Orientation="Horizontal">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference lvChatUserList}}"
+                                                              CommandParameter="{Binding .}" />
+                                    </StackLayout.GestureRecognizers>
+
+                                    <toolkit:AvatarView BorderColor="#dcdcdc"
+                                                        BorderWidth="1"
+                                                        CornerRadius="100"
+                                                        HeightRequest="70"
+                                                        ImageSource="{Binding PhotoPath}"
+                                                        WidthRequest="70" />
+
+                                    <StackLayout Margin="10,0,2,0"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 VerticalOptions="Center">
+                                        <StackLayout>
+                                            <Label FontAttributes="Bold"
+                                                   FontSize="16"
+                                                   HorizontalOptions="Start"
+                                                   Text="{Binding Name}"
+                                                   TextColor="#555"
+                                                   VerticalTextAlignment="Center" />
+                                            <Label Margin="0,5"
+                                                   FontSize="13"
+                                                   Text="{Binding Location}"
+                                                   TextColor="#444" />
+
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <Frame Padding="0"
+                                           BackgroundColor="{Binding IsOnline, Converter={StaticResource OnlineStatus}}"
+                                           CornerRadius="10"
+                                           HeightRequest="3"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           WidthRequest="3" />
+
+                                </StackLayout>
+
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+                <!--<RefreshView Grid.ColumnSpan="2"
+                             IsRefreshing="{Binding IsRefreshing}">
+                    <ContentView>
+                        <CollectionView x:Name="lvChatUserList"
+                                        ItemsSource="{Binding ChatUserList}"
+                                        SelectionMode="None">
+                            <CollectionView.EmptyView>
+                                <StackLayout Padding="100">
+                                    <Image HeightRequest="160"
+                                           HorizontalOptions="Center"
+                                           Source="nodata.png"
+                                           VerticalOptions="Center"
+                                           WidthRequest="160" />
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:ChatUser">
+
+                                    <StackLayout Margin="0"
+                                                 Padding="0,0,0,1"
+                                                 BackgroundColor="LightGray">
+
+                                        <StackLayout Padding="0,5,0,5"
+                                                     BackgroundColor="White"
+                                                     Orientation="Horizontal">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.SelectCommand, Source={x:Reference lvChatUserList}}"
+                                                                      CommandParameter="{Binding .}" />
+                                            </StackLayout.GestureRecognizers>
+
+                                            <toolkit:AvatarView BorderColor="#dcdcdc"
+                                                                BorderWidth="1"
+                                                                CornerRadius="100"
+                                                                HeightRequest="70"
+                                                                ImageSource="{Binding PhotoPath}"
+                                                                WidthRequest="70" />
+
+                                            <StackLayout Margin="10,0,2,0"
+                                                         HorizontalOptions="FillAndExpand"
+                                                         VerticalOptions="Center">
+                                                <StackLayout>
+                                                    <Label FontAttributes="Bold"
+                                                           FontSize="16"
+                                                           HorizontalOptions="Start"
+                                                           Text="{Binding Name}"
+                                                           TextColor="#555"
+                                                           VerticalTextAlignment="Center" />
+                                                    <Label Margin="0,5"
+                                                           FontSize="13"
+                                                           Text="{Binding Location}"
+                                                           TextColor="#444" />
+
+                                                </StackLayout>
+                                            </StackLayout>
+
+                                            <Frame Padding="0"
+                                                   BackgroundColor="{Binding IsOnline, Converter={StaticResource OnlineStatus}}"
+                                                   CornerRadius="10"
+                                                   HeightRequest="3"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   WidthRequest="3" />
+
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ContentView>
+                </RefreshView>-->
+            </Border>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Dorisoy.ChatApp.ChatMessagePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Dorisoy.ChatApp.Converters"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:model="clr-namespace:Dorisoy.ChatApp.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:Dorisoy.ChatApp.ViewModel"
+             Title="Chat Message"
+             x:DataType="viewmodel:ChatMessageViewModel"
+             Shell.BackgroundColor="#5cb26e">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="#5cb26e" />
+    </ContentPage.Behaviors>
+
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="0"
+                               VerticalOptions="Fill"
+                               Margin="0,0,0,0">
+
+            <ImageButton Command="{Binding GoToChatListCommand}"
+                         HeightRequest="25"
+                         HorizontalOptions="Start"
+                         Source="back_white.png"
+                         Background="Transparent" />
+
+            <toolkit:AvatarView Margin="5,5"
+                                BorderWidth="1"
+                                CornerRadius="100"
+                                HeightRequest="40"
+                                HorizontalOptions="End"
+                                ImageSource="{Binding PairPhoto}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="40" />
+
+            <Label Margin="5,10"
+                   FontAttributes="Bold"
+                   FontSize="16"
+                   Text="{Binding PairName}"
+                   TextColor="#fff"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="Auto,Auto,*,Auto" ColumnSpacing="0" RowSpacing="0">
+
+            <Frame Grid.Row="0"
+                   Margin="0,-5,0,0"
+                   BorderColor="#5cb26e"
+                   BackgroundColor="#5cb26e"
+                   CornerRadius="0"
+                   HasShadow="False"
+                   HeightRequest="90" />
+
+            <Border Grid.Row="2"
+                   Margin="0,-70,0,0"
+                   Padding="0"
+                   BackgroundColor="#f3efec"
+                   Stroke="#5cb26e"
+                   StrokeThickness="0"
+                   VerticalOptions="FillAndExpand">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="30,30,0,0" />
+                </Border.StrokeShape>
+                
+                <Border.Shadow>
+                    <Shadow Opacity="0.1"
+                            Offset="2,2"
+                            Radius="0" />
+                </Border.Shadow>
+                
+                <Grid RowDefinitions="*,80"
+                      RowSpacing="0">
+                    <StackLayout Grid.Row="0"
+                                 Grid.Column="0"
+                                 VerticalOptions="FillAndExpand">
+
+                        <ScrollView VerticalOptions="FillAndExpand">
+
+                            <CollectionView x:Name="lvChat"
+                                            Margin="{OnPlatform Android='0,0,0,0',
+                                                    iOS='0,0,0,0'}"
+                                            BackgroundColor="Transparent"
+                                            FlowDirection="RightToLeft"
+                                            ItemsSource="{Binding ChatMessageList}"
+                                            ItemsUpdatingScrollMode="KeepLastItemInView"
+                                            VerticalOptions="End">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:ChatMessage">
+                                        <Grid Padding="5">
+
+                                            <Grid IsVisible="{Binding IsSystemMessage}">
+                                                <Label Margin="20,5"
+                                                       FontSize="16"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       HorizontalTextAlignment="Center"
+                                                       Text="{Binding Message}"
+                                                       TextColor="#969daf" />
+                                            </Grid>
+
+
+                                            <Grid IsVisible="{Binding IsSystemMessage, Converter={StaticResource InverseBool}}">
+                                                <Grid IsVisible="{Binding IsOwnMessage, Converter={StaticResource InverseBool}}"
+                                                      RowSpacing="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="60" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+
+                                                    <toolkit:AvatarView Grid.Column="1"
+                                                                        BorderWidth="5"
+                                                                        CornerRadius="100"
+                                                                        HeightRequest="60"
+                                                                        HorizontalOptions="End"
+                                                                        ImageSource="{Binding PairPhoto}"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="60" />
+
+                                                    <Grid Grid.Column="0"
+                                                          Margin="50,5,0,5"
+                                                          Padding="10"
+                                                          HorizontalOptions="EndAndExpand"
+                                                          RowDefinitions="Auto"
+                                                          VerticalOptions="FillAndExpand">
+
+                                                        <Frame Margin="0,5,0,0"
+                                                               Padding="5"
+                                                               BackgroundColor="#EBE7F6"
+                                                               CornerRadius="5"
+                                                               HasShadow="True"
+                                                               HorizontalOptions="FillAndExpand">
+
+                                                            <StackLayout Orientation="Vertical">
+                                                                <StackLayout>
+                                                                    <Label Margin="10,5,10,0"
+                                                                           FontSize="15"
+                                                                           HorizontalTextAlignment="End"
+                                                                           LineBreakMode="CharacterWrap"
+                                                                           Text="{Binding Message}"
+                                                                           TextColor="#444"
+                                                                           VerticalOptions="FillAndExpand" />
+                                                                </StackLayout>
+                                                                <StackLayout>
+                                                                    <Label Margin="10,5,10,5"
+                                                                           FontSize="13"
+                                                                           LineBreakMode="CharacterWrap"
+                                                                           Text="{Binding ActionTime}"
+                                                                           TextColor="#777"
+                                                                           VerticalOptions="FillAndExpand" />
+                                                                </StackLayout>
+                                                            </StackLayout>
+
+                                                        </Frame>
+
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid IsVisible="{Binding IsOwnMessage}"
+                                                      RowSpacing="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="60" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+
+                                                    <toolkit:AvatarView Padding="0"
+                                                                        BorderWidth="5"
+                                                                        CornerRadius="100"
+                                                                        HeightRequest="60"
+                                                                        HorizontalOptions="Start"
+                                                                        ImageSource="{Binding MyPhoto}"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="60" />
+
+                                                    <Grid Grid.Row="0"
+                                                          Grid.Column="1"
+                                                          Margin="5,5,50,0"
+                                                          Padding="10"
+                                                          HorizontalOptions="Start"
+                                                          VerticalOptions="FillAndExpand">
+
+                                                        <Frame Margin="0,5,0,0"
+                                                               Padding="5"
+                                                               BackgroundColor="#fff"
+                                                               CornerRadius="5"
+                                                               HasShadow="True"
+                                                               HorizontalOptions="FillAndExpand">
+
+                                                            <StackLayout Orientation="Vertical">
+                                                                <StackLayout>
+                                                                    <Label Margin="10,5,10,0"
+                                                                           FontSize="15"
+                                                                           HorizontalTextAlignment="End"
+                                                                           LineBreakMode="CharacterWrap"
+                                                                           Text="{Binding Message}"
+                                                                           TextColor="#444"
+                                                                           VerticalOptions="FillAndExpand" />
+                                                                </StackLayout>
+                                                                <StackLayout>
+                                                                    <Label Margin="10,5,10,5"
+                                                                           FontSize="13"
+                                                                           LineBreakMode="CharacterWrap"
+                                                                           Text="{Binding ActionTime}"
+                                                                           TextColor="#777"
+                                                                           VerticalOptions="FillAndExpand" />
+                                                                </StackLayout>
+                                                            </StackLayout>
+
+                                                        </Frame>
+
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+
+                        </ScrollView>
+
+                        <StackLayout Margin="0"
+                                     Padding="10,5,5,5"
+                                     IsVisible="{Binding ShowTyping}"
+                                     Spacing="0"
+                                     VerticalOptions="Center">
+                            <Label FontAttributes="Italic"
+                                   FontSize="15"
+                                   Text="{Binding TypingText}"
+                                   TextColor="Black" />
+                        </StackLayout>
+
+                    </StackLayout>
+
+                    <Frame Grid.Row="1"
+                           Grid.Column="0"
+                           Padding="0,2,0,0"
+                           CornerRadius="0"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="End">
+
+                        <StackLayout Margin="0"
+                                     Padding="15,10,10,10"
+                                     BackgroundColor="#f5f5f5"
+                                     Spacing="0">
+
+                            <StackLayout Orientation="Horizontal">
+                                <Entry x:Name="entry"
+                                       BackgroundColor="#f5f5f5"
+                                       FontSize="17"
+                                       HorizontalOptions="FillAndExpand"
+                                       Placeholder="键入您的消息..."
+                                       Text="{Binding SendingMessage}"
+                                       VerticalOptions="FillAndExpand" />
+
+                                <ImageButton Command="{Binding SendMessageCommand}"
+                                             HeightRequest="45"
+                                             HorizontalOptions="Center"
+                                             Source="send.png"
+                                             VerticalOptions="CenterAndExpand"
+                                             WidthRequest="45" />
+
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

@@ -1,0 +1,222 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-ios;net8.0-maccatalyst;net8.0-android34.0</TargetFrameworks>
+		
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.22621.0</TargetFrameworks>
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>Dorisoy.ChatApp</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<WindowsSdkPackageVersion>10.0.22621.41</WindowsSdkPackageVersion>
+
+		<!-- Display name -->
+		<ApplicationTitle>Dorisoy.ChatApp</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.Dorisoy.ChatApp</ApplicationId>
+		<ApplicationIdGuid>70e6a639-158b-40a0-854d-158c376ab076</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<Title>Dorisoy.ChatApp</Title>
+		<Description>Dorisoy.ChatApp</Description>
+		<Copyright>Dorisoy</Copyright>
+
+		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.26100.0</SupportedOSPlatformVersion>
+
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.26100.0</TargetPlatformMinVersion>-->
+
+		<!--<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
+
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>-->
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Images\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<MauiImage Update="Resources\Images\splash.svg" BaseSize="208,208" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AndroidResource Remove="ViewModels\Account1\**" />
+		<AndroidResource Remove="ViewModels\Chat1\**" />
+		<AndroidResource Remove="ViewModels\Menu\**" />
+		<AndroidResource Remove="Views\Account1\**" />
+		<AndroidResource Remove="Views\Chat1\**" />
+		<AndroidResource Remove="Views\Menu1\**" />
+		<Compile Remove="ViewModels\Account1\**" />
+		<Compile Remove="ViewModels\Chat1\**" />
+		<Compile Remove="ViewModels\Menu\**" />
+		<Compile Remove="Views\Account1\**" />
+		<Compile Remove="Views\Chat1\**" />
+		<Compile Remove="Views\Menu1\**" />
+		<EmbeddedResource Remove="ViewModels\Account1\**" />
+		<EmbeddedResource Remove="ViewModels\Chat1\**" />
+		<EmbeddedResource Remove="ViewModels\Menu\**" />
+		<EmbeddedResource Remove="Views\Account1\**" />
+		<EmbeddedResource Remove="Views\Chat1\**" />
+		<EmbeddedResource Remove="Views\Menu1\**" />
+		<MauiCss Remove="ViewModels\Account1\**" />
+		<MauiCss Remove="ViewModels\Chat1\**" />
+		<MauiCss Remove="ViewModels\Menu\**" />
+		<MauiCss Remove="Views\Account1\**" />
+		<MauiCss Remove="Views\Chat1\**" />
+		<MauiCss Remove="Views\Menu1\**" />
+		<MauiXaml Remove="ViewModels\Account1\**" />
+		<MauiXaml Remove="ViewModels\Chat1\**" />
+		<MauiXaml Remove="ViewModels\Menu\**" />
+		<MauiXaml Remove="Views\Account1\**" />
+		<MauiXaml Remove="Views\Chat1\**" />
+		<MauiXaml Remove="Views\Menu1\**" />
+		<None Remove="ViewModels\Account1\**" />
+		<None Remove="ViewModels\Chat1\**" />
+		<None Remove="ViewModels\Menu\**" />
+		<None Remove="Views\Account1\**" />
+		<None Remove="Views\Chat1\**" />
+		<None Remove="Views\Menu1\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="Helpers\Settings.cs" />
+		<Compile Remove="ViewModels\ChatListPageViewModel.cs" />
+		<Compile Remove="ViewModels\ViewModelBase.cs" />
+		<Compile Remove="Views\LoginPage1.xaml.cs" />
+		<Compile Remove="Views\TestPage.xaml.cs" />
+		<Compile Remove="Views\TestPage1.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Remove="Views\LoginPage1.xaml" />
+		<MauiXaml Remove="Views\TestPage.xaml" />
+		<MauiXaml Remove="Views\TestPage1.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Images\back_white.png" />
+		<None Remove="Resources\Images\emoji1.png" />
+		<None Remove="Resources\Images\emoji10.png" />
+		<None Remove="Resources\Images\emoji2.png" />
+		<None Remove="Resources\Images\emoji3.png" />
+		<None Remove="Resources\Images\emoji4.png" />
+		<None Remove="Resources\Images\emoji5.png" />
+		<None Remove="Resources\Images\emoji6.png" />
+		<None Remove="Resources\Images\emoji7.png" />
+		<None Remove="Resources\Images\emoji8.png" />
+		<None Remove="Resources\Images\emoji9.png" />
+		<None Remove="Resources\Images\f1.png" />
+		<None Remove="Resources\Images\f2.png" />
+		<None Remove="Resources\Images\f3.png" />
+		<None Remove="Resources\Images\f4.png" />
+		<None Remove="Resources\Images\female1.png" />
+		<None Remove="Resources\Images\female2.png" />
+		<None Remove="Resources\Images\female3.png" />
+		<None Remove="Resources\Images\icon_send.png" />
+		<None Remove="Resources\Images\location.png" />
+		<None Remove="Resources\Images\m1.png" />
+		<None Remove="Resources\Images\m2.png" />
+		<None Remove="Resources\Images\m3.png" />
+		<None Remove="Resources\Images\m4.png" />
+		<None Remove="Resources\Images\male1.png" />
+		<None Remove="Resources\Images\male2.png" />
+		<None Remove="Resources\Images\male3.png" />
+		<None Remove="Resources\Images\nodata.png" />
+		<None Remove="Resources\Images\password.png" />
+		<None Remove="Resources\Images\send.png" />
+		<None Remove="Resources\Images\splash.svg" />
+		<None Remove="Resources\Images\user.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Views\ChatMessagePage.xaml.cs">
+			<DependentUpon>ChatMessagePage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\LoginPage.xaml.cs">
+			<DependentUpon>LoginPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\RegisterPage.xaml.cs">
+			<DependentUpon>RegisterPage.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Styles\Buttons.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Styles\Colors.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Styles\Icons.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Styles\Labels.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Styles\Styles.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ChatListPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ChatMessagePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\FontIcons\FontIconsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\RegisterPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<!--<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls" Version="8.0.90" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.Maui.Controls.Compatibility" Version="8.0.90" />
+	</ItemGroup>-->
+
+</Project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
+  <assemblyIdentity version="1.0.0.0" name="Dorisoy.ChatApp.WinUI.app"/>
+
+  <application xmlns="urn:schemas-microsoft-com:asm.v3">
+    <windowsSettings>
+      <!-- The combination of below two tags have the following effect:
+           1) Per-Monitor for >= Windows 10 Anniversary Update
+           2) System < Windows 10 Anniversary Update
+		   严重性	说明	代码	项目	文件	行	禁止显示状态	详细信息
+错误	DEP0700: 应用程序注册失败。[0x80073CF6] AppxManifest.xml(34,27): 错误 0x80070002: 无法安装或更新程序包 70e6a639-158b-40a0-854d-158c376ab076_9zz4h110yvjzm，因为找不到初始屏幕图像 [$placeholder$.png]。请验证是否可以将程序包包含的图像用作应用程序的初始屏幕，以及程序包部件清单(manifest)是否指向程序包中可以找到此初始屏幕图像的正确位置。		Dorisoy.ChatApp				
+
+		   
+		   严重性	说明	代码	项目	文件	行	禁止显示状态	详细信息
+错误	DEP0700: 应用程序注册失败。[0x80073CF6] AppxManifest.xml(34,27): 错误 0x80070002: 无法安装或更新程序包 70e6a639-158b-40a0-854d-158c376ab076_9zz4h110yvjzm，因为找不到初始屏幕图像 [$placeholder$.png]。请验证是否可以将程序包包含的图像用作应用程序的初始屏幕，以及程序包部件清单(manifest)是否指向程序包中可以找到此初始屏幕图像的正确位置。		Dorisoy.ChatApp				
+
+      -->
+      <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true/PM</dpiAware>
+      <dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitorV2, PerMonitor</dpiAwareness>
+    </windowsSettings>
+  </application>
+</assembly>
